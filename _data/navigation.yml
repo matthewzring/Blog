@@ -1,0 +1,5 @@
+main:
+  - title: "Posts"
+    url: /posts/
+  - title: "Website"
+    url: "https://matthewzring.dev"
