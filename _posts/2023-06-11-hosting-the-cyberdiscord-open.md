@@ -2,11 +2,17 @@
 title: "Hosting the CyberDiscord Open"
 date:   2023-06-11
 categories:
-  - CyberDiscord
+  - eCitadel
 tags:
   - competitions
-  - cyberdiscord
+  - ecitadel
   - thoughts
+---
+
+### Update
+
+Since originally writing this article, CyberDiscord has rebranded to eCitadel! You can learn all about eCitadel at https://ecitadel.org/.
+
 ---
 
 Last week, we organized and hosted the first-ever CyberDiscord Open, a cybersecurity competition that brought together 118 teams from five different countries: the United States, Canada, United Kingdom, South Korea, and Japan! We managed to plan and execute the entire competition in just over three weeks, so I wanted to talk about our goals, the challenges we faced, the solutions we implemented, and some valuable lessons we learned along the way. 
