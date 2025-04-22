@@ -35,7 +35,7 @@ Incident reports should include the source and destination IP addresses, how the
 
 There were two chances for incident response. On Windows 2016, there was a reverse HTTP meterpreter, and on Alma Linux 9, there was a Golang backdoor.
 
-#### Reverse HTTP meterpreter - 3%
+### Reverse HTTP meterpreter - 3%
 
 On Windows, you can use a tool like TCPView to view established connections.
 
@@ -54,7 +54,7 @@ Here are some of the most commonly missed vulnerabilities as well as how to find
 
 ### <u>Alma Linux 9 - Highest Score: 85 points</u>
 
-#### Domain user butler is not an administrator - 23%
+### Domain user butler is not an administrator - 23%
 
 If you audit the contents of `/etc/group`, you will notice the following misconfiguration:
 
@@ -64,13 +64,13 @@ wheel:x:10:sigurd,butler@company.local
 
 The `wheel` group on RHEL-based linux systems is the equivalent of the `sudo` group on Debian, and grants administrator privileges. As the domain user `butler` is not an authorized administrator, we should remove him from the `wheel` group.
 
-#### IPv4 forwarding has been disabled - 22%
+### IPv4 forwarding has been disabled - 22%
 
 As this linux server is not acting as a router, we do not need to be forwarding packets meant for other destinations (other than ourself).
 
 Edit the file `/etc/sysctl.conf` and change the line that says `net.ipv4.ip_forward=1` to 0. Save the file, then run `sysctl -p` to reload the settings, or reboot.
 
-#### Firewall protection has been enabled - 34%
+### Firewall protection has been enabled - 34%
 
 Enabling a host-based firwall is very important to system security. You can view the status of firewalld with the command `sudo systemctl status firewalld`.
 
@@ -78,7 +78,7 @@ Enabling a host-based firwall is very important to system security. You can view
 
 Simply type `sudo systemctl enable --now firewalld` to enable and start the firewall.
 
-#### DNF automatically installs updates - 20%
+### DNF automatically installs updates - 20%
 
 You can use a service to automatically download and install any new updates (for example security updates).
 
@@ -90,11 +90,11 @@ apply_updates=yes
 
 Finally, run `sudo systemctl enable --now dnf-automatic.timer` to enable and start the systemd timer.
 
-#### firewalld has been updated - 47%
+### firewalld has been updated - 47%
 
 Updating installed applications and services to fix security vulnerabilities is an important principle of good cybersecurity. To update firewalld, type `sudo dnf upgrade firewalld`.
 
-#### Prohibited software nyancat removed - 20%
+### Prohibited software nyancat removed - 20%
 
 If you ever logged in as root, you may have encountered:
 
@@ -106,19 +106,19 @@ You can quickly find how it is being started by looking in the root user's `.bas
 
 Remove the entry from root's `.bashrc` and delete the nyancat binary with `rm -f /usr/sbin/meowmeowmeowmeowmeowmeowmeowmeowmeowmeow`.
 
-#### SSH root login has been disabled - 50%
+### SSH root login has been disabled - 50%
 
 Only authorized employees should be allowed to login to the SSH server.
 
 Open the file at `/etc/ssh/sshd_config` and change the line that says `PermitRootLogin yes` to `PermitRootLogin no`. Save the file and exit, then restart the service with `sudo systemctl restart sshd`.
 
-#### SSH does not permit empty passwords - 35%
+### SSH does not permit empty passwords - 35%
 
 We should always require a password when logging into the SSH server, as an additional security measure.
 
 Open the file at `/etc/ssh/sshd_config` and change the line that says `PermitEmptyPasswords yes` to `PermitEmptyPasswords no`. Save the file and exit, then restart the service with `sudo systemctl restart sshd`.
 
-#### FTP anonymous access is disabled - 41%
+### FTP anonymous access is disabled - 41%
 
 Only authorized employees should be allowed to login to the FTP server.
 
@@ -126,8 +126,9 @@ Open the file at `/etc/vsftpd/vsftpd.conf` and change the line that says `anonym
 
 ### <u>Linux Mint 21 - Highest Score: 80 points</u>
 
-#### Forensics Question 2 correct - 53%
-#### Removed unauthorized MySQL user bees - 35%
+### Forensics Question 2 correct - 53%
+
+### Removed unauthorized MySQL user bees - 35%
 
 This question asked you to identify the password hash of an unauthorized user on the database.
 
@@ -139,7 +140,7 @@ MySQL stores information about users in the `user` table of the `mysql` database
 
 Looking at the output, it is obvious that `bees` is the unauthorized user. After you have answered the question, you can now delete this user with the command `DROP USER bees;`.
 
-#### Removed hidden user Admin - 26%
+### Removed hidden user Admin - 26%
 
 If you audit the contents of `/etc/passwd`, you will notice the following entry:
 
@@ -149,11 +150,11 @@ Admin:x:99:99:Admin:/bin:/bin/bash
 
 This user will not show up in Users and Groups because they have a UID less than 1000 (typically reserved for system accounts), but they can login because they have a valid shell. You can delete them with `sudo userdel Admin`.
 
-#### A default minimum password age is set - 41%
+### A default minimum password age is set - 41%
 
 Open the `/etc/login.defs` file. Find the line that says `PASS_MIN_DAYS  0` and change it to any value greater than 0.
 
-#### Uncomplicated Firewall (UFW) protection has been enabled - 73%
+### Uncomplicated Firewall (UFW) protection has been enabled - 73%
 
 Enabling a host-based firwall is very important to system security. You can view the status of UFW with the command:
 
@@ -164,9 +165,9 @@ Status: inactive
 
 Simply type `sudo ufw enable` to enable the firewall.
 
-#### Removed ICMP backdoor - 0%
+### Removed ICMP backdoor - 0%
 
-If you audit the list of services on the system, you will notice the unauthorized `prism.service`, started with systemd. Further investigation into this service will reveal that it is starting the [Prism backdoor](https://github.com/andreafabrizi/prism).
+If you audit the list of services on the system, you will notice the unauthorized `prism.service`, started with systemd. Further investigation into this service will reveal that it is starting the [Prism backdoor](https://github.com/andreafabrizi/prism){:target="_blank"}.
 
 To remove, simply disable and stop the service, then remove the binary.
 
@@ -175,7 +176,7 @@ $ sudo systemctl disable --now prism
 $ sudo rm -f /usr/sbin/prism
 ```
 
-#### Chromium blocks intrusive advertisements - 8%
+### Chromium blocks intrusive advertisements - 8%
 
 Open Chromium and navigate to `chrome://settings/content/ads`. Select **Ads are blocked on sites that show intrusive or misleading ads**.
 
@@ -183,28 +184,28 @@ Open Chromium and navigate to `chrome://settings/content/ads`. Select **Ads are 
 
 ### <u>Windows Server 2016 - Highest Score: 90 points</u>
 
-#### Created user account tulipsnake - 64%
+### Created user account tulipsnake - 64%
 
 Part one of the "New User Inject" requested you to create a new domain user account to be added to the "company.local" domain.
 
 Open the run dialog and type `dsa.msc` to open Active Directory Users and Computers. Click **company.local -> Users** on the left side of the window. Right click on **Users** and select **New -> User**. Enter in `tulipsnake` for **Full name** and **User logon name**, then select **Next >**. Enter in a secure temporary password of your choosing and select **Next >**. Verify the information is correct and select **Finish**.
 
-#### User thumper is not an Domain Admin - 39%
+### User thumper is not an Domain Admin - 39%
 
 Open the run dialog and type `dsa.msc` to open Active Directory Users and Computers. Click **company.local -> Users** on the left side of the window. Double-click on **Domain Admins** to open a Properties window. Navigate to the **Members** tab, select **thumper**, and click **Remove**, then click **OK** to apply the changes and close the Properties window.
 
-#### Firewall protection has been enabled - 75%
+### Firewall protection has been enabled - 75%
 
 Open the run dialog and type `wf.msc` to open Windows Firewall with Advanced Security. Click on **Windows Firewall Properties** in the middle of the window. On all three profile tabs, ensure that Firewall state is set to **On (recommended)**.
 
-#### Removed reverse HTTP meterpreter - 19%
+### Removed reverse HTTP meterpreter - 19%
 
-See above for how to find and solve this vulnerability.
+See [above](#reverse-http-meterpreter---3) for how to find and solve this vulnerability.
 
 ### <u>Windows Server 2022 - Highest Score: 76 points</u>
 
-#### Forensics Question 2 correct - 43%
-#### Removed malicious administrative SSH key - 23%
+### Forensics Question 2 correct - 43%
+### Removed malicious administrative SSH key - 23%
 
 This question asked for the comment in an unauthorized public key on the OpenSSH server.
 
@@ -212,20 +213,20 @@ Public keys are stored in the file `C:\ProgramData\ssh\administrators_authorized
 
 After you have answered this question, delete the key by removing the line from the file.
 
-#### Users may not read the MediaWiki LocalSettings file - 0%
+### Users may not read the MediaWiki LocalSettings file - 0%
 
 The MediaWiki configuration file is located at `C:\inetpub\wwwroot\LocalSettings.php`. If you audit the file you will notice that the `Users` group has read permissions on the file.
 
-#### Windows Defender Firewall service is running - 20%
-#### Microsoft FTP service has been stopped and disabled - 25%
+### Windows Defender Firewall service is running - 20%
+### Microsoft FTP service has been stopped and disabled - 25%
 
 Open the run dialog and type `services.msc` to open Windows Services. Make sure the Windows Defender Firewall is running and configured to automatically start. Make sure the Microsoft FTP service has been stopped and its startup type set to disabled.
 
-#### Windows automatically checks for updates - 27%
+### Windows automatically checks for updates - 27%
 
 Open the run dialog and type `gpedit.msc` to open the Local Group Policy Editor console. Navigate to **Computer Configuration -> Administrative Templates -> Windows Components -> Windows Updates**. Double click on **Configure Automatic Updates**. Enable the setting by selecting **4 - Auto download and schedule the install**. Also, check the box for **Install updates for other Microsoft products**.
 
-#### Google Chrome has been updated - 59%
+### Google Chrome has been updated - 59%
 
 Open Google Chrome and navigate to https://google.com/chrome. Click on the Download Chrome button to download the latest installer and run it.
 
@@ -233,9 +234,9 @@ Open Google Chrome and navigate to https://google.com/chrome. Click on the Downl
 
 Registration for the 2025 eCitadel Open is now open! This year we're making lots of changes to the competition structure, environment, and scoring.
 
-#### Registration Fees
+### Registration Fees
 
-We've always wanted to keep eCitadel free to participate. In the past, we've funded prizes and new hardware out of our own pockets, however that's just not sustainable anymore. As the competition rapidly grows, we need even more hardware and resources to be able to support more teams. For example, we currently only have a single [10 Gigabit Ethernet switch](https://sg.store.ui.com/sg/en/collections/unifi-switching-enterprise-10-gbps-ethernet/products/usw-enterprisexg-24) available to run this competition. Adding any more servers would affect I/O speeds for all teams, which means that we have a maximum of 13 servers for teams (because we physically ran out of ports on the switch).
+We've always wanted to keep eCitadel free to participate. In the past, we've funded prizes and new hardware out of our own pockets, however that's just not sustainable anymore. As the competition rapidly grows, we need even more hardware and resources to be able to support more teams. For example, we currently only have a single [10 Gigabit switch](https://sg.store.ui.com/sg/en/collections/unifi-switching-enterprise-10-gbps-ethernet/products/usw-enterprisexg-24){:target="_blank"} available to run this competition. Adding any more servers would affect I/O speeds for all teams, which means that we have a maximum of 13 servers for teams (because we physically ran out of ports on the switch).
 
 <figure>
 <img src="https://i.imgur.com/AmLtbwh.jpeg">
@@ -249,34 +250,34 @@ This year we're charging registration fees of $10 per team to participate in eCi
 - Prizes
 - Merch (stickers, coins)
 
-#### Competiiton Window
+### Competition Window
 
 The competition window will be increasing from 4 to 6 hours. We feel that this will allow teams to become more familiar with the environment and handle more challenges, and overall allow for a better competition experience.
 
-#### Web-based challenges
+### Web-based challenges
 
 We're removing web-based challenges from eCitadel to focus on injects that relate more to the competition environment. CTF haters, rejoice! And for you die-hard CTF fans out there, don't worry - we have plans to host an eCitadel-style CTF competition in the future. We want to take the time to get things right, so you can expect more updates towards the end of the year.
 
-#### Service Scoring
+### Service Scoring
 
 We feel that scoring services externally worked out really well last year. This year we'll be scoring your services live during your 6-hour competition window (as opposed to just one service check). Critical services will account for roughly 20 percent of the possible points.
 
-#### Injects
+### Injects
 
 The introduction of injects was well-received last year, and this year injects will account for roughly 40 percent of the possible points. We're going to be introducing different types of injects, including writing business-style reports that will be manually graded. Teams should expect to have to put a lot of effort into writing high-quality reports to achieve a high score.
 
-#### Red Team
+### Red Team
 
 Teams will have simulated red team activity on their machines, including pre-planted malware. Successful red team persistence will result in point deductions from a team's total score. Incident reports may be submitted and will be part of a team's inject scores.
 
-#### VPN
+### VPN
 
 The competition will remain entirely browser-based, but we will give teams the option to connect to a VPN if they want to have direct SSH/RDP access to their machines.
 
-#### Vulnerabilities
+### Vulnerabilities
 
-The machines will have less scored vulnerabilities overall, but they will be more focused in specific, relevant categories.
+The machines will have less scored vulnerabilities overall, but they will be more focused in specific categories.
 
 ## Summary
 
-With these new changes, our goal is to make it realistic for a well-prepared team to achieve a perfect or near-perfect score. We're looking forward to hosting the competition and appreciate all the enthusiasm and support you all have shown for eCitadel. You can now sign up for the Season III of the eCitadel Open! Visit https://ecitadel.org/registration to learn how to register.
+With these new changes, our goal is to make it realistic for a well-prepared team to achieve a perfect or near-perfect score. We're looking forward to hosting the competition and appreciate all the enthusiasm and support you all have shown so far. You can now sign up for the Season III of the eCitadel Open! Visit [https://ecitadel.org/registration](https://ecitadel.org/registration){:target="_blank"} to learn how to register.
